@@ -8,6 +8,12 @@ public class VerbMorpher {
 
         String answer;
 
+        try {
+          //  checkParameters(args);
+        } catch (Exception e) {
+            answer = "Неправильный вызов." + e.getMessage();
+        }
+
         if (args.length < 6) {
             answer = "Неправильный вызов." +
                     "\nУкажате 6 аргументов: язык, лицо, род, число, время, инфинитив";
@@ -25,7 +31,5 @@ public class VerbMorpher {
         }
 
         System.out.println(answer);
-
     }
-
 }
