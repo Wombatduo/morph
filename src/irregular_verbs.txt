@@ -38,8 +38,7 @@ forbid	forbade	forbidden
 forget	forgot	forgotten
 forgive	forgave	forgiven
 freeze	froze	frozen
-get	got	got (BrE)
-gotten (AmE)
+get	got	got
 give	gave	given
 go	went	gone
 grow	grew	grown
