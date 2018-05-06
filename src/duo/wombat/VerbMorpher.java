@@ -18,7 +18,7 @@ public class VerbMorpher {
         String answer;
 
         try {
-            //  checkParameters(args);
+            paramsAreCorrect(args);
         } catch (Exception e) {
             answer = "Неправильный вызов." + e.getMessage();
         }
@@ -42,7 +42,17 @@ public class VerbMorpher {
         System.out.println(answer);
     }
 
+    protected static boolean paramsAreCorrect(String[] args) throws WrongParameterException {
+        return paramsAreCorrect( args[4], args[1], args[2],  args[3]);
+    }
+
     protected static boolean paramsAreCorrect(String tense, String person, String genus, String number)
+// TODO Избавиться от этой формы функции
+//    String tense;
+//    String person;
+//    String genus;
+//    String number;
+
             throws WrongParameterException {
         if (!tenses.contains(tense)) {
             throwWrongParameterExceptionWithMessage("Tense is wrong");

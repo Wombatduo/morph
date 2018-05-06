@@ -8,12 +8,13 @@ import org.junit.rules.ExpectedException;
 import static org.junit.Assert.*;
 
 
-public class    VerbMorpherTest extends VerbMorpher {
+public class VerbMorpherTest extends VerbMorpher {
 
-    String person ;
-    String genus;
-    String num;
-    String tense;
+    private static final String PERSON = "1";
+    private static final String GENUS = "m";
+    private static final String NUM = "singular";
+    private static final String TENSE = "past";
+    private static final String[] PARAMS = {"EN", PERSON, GENUS, NUM, TENSE};
 
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
@@ -21,15 +22,16 @@ public class    VerbMorpherTest extends VerbMorpher {
 
     @Before
     public void setup(){
-        person  = "1";
-        genus = "m";
-        num = "singular";
-        tense = "past";
     }
 
     @Test
     public void checkNoEceptionThenAllPArametrsAreCorrect() throws Exception {
-        assertTrue(paramsAreCorrect(tense, person, genus, num));
+        assertTrue(paramsAreCorrect(TENSE, PERSON, GENUS, NUM));
+    }
+
+    @Test
+    public void checkNoEceptionThenArrayOfParametersIsCorrect() throws Exception {
+        assertTrue(paramsAreCorrect(PARAMS));
     }
 
     @Test
@@ -38,7 +40,7 @@ public class    VerbMorpherTest extends VerbMorpher {
 
         expectedEx.expect(WrongParameterException.class);
         expectedEx.expectMessage("Number is wrong");
-        paramsAreCorrect(tense, person, genus, wrong_num);
+        paramsAreCorrect(TENSE, PERSON, GENUS, wrong_num);
     }
 
     @Test
@@ -47,7 +49,7 @@ public class    VerbMorpherTest extends VerbMorpher {
 
         expectedEx.expect(WrongParameterException.class);
         expectedEx.expectMessage("Tense is wrong");
-        paramsAreCorrect(wrong_tense, person, genus, num);
+        paramsAreCorrect(wrong_tense, PERSON, GENUS, NUM);
     }
 
     @Test
@@ -56,7 +58,7 @@ public class    VerbMorpherTest extends VerbMorpher {
 
       //  expectedEx.expect(WrongParameterException.class);
         expectedEx.expectMessage("Person is wrong");
-        paramsAreCorrect(tense, wrong_person, genus, num);
+        paramsAreCorrect(TENSE, wrong_person, GENUS, NUM);
     }
 
     @Test
@@ -65,6 +67,6 @@ public class    VerbMorpherTest extends VerbMorpher {
 
         expectedEx.expect(WrongParameterException.class);
         expectedEx.expectMessage("Genus is wrong");
-        paramsAreCorrect(tense, person, wrong_genus, num);
+        paramsAreCorrect(TENSE, PERSON, wrong_genus, NUM);
     }
 }
