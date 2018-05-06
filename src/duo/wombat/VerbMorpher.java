@@ -2,14 +2,23 @@ package duo.wombat;
 
 import duo.wombat.lang.EN.EnglishVerb;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class VerbMorpher {
+
+    public static List<String> tenses = Arrays.asList("past", "present", "future");
+    public static List<String> numbers = Arrays.asList("singular", "plural");
+    public static List<String> persons = Arrays.asList("1", "2", "3");
+    public static List<String> genuses = Arrays.asList("m", "f", "t");
+
 
     public static void main(String[] args) {
 
         String answer;
 
         try {
-          //  checkParameters(args);
+            //  checkParameters(args);
         } catch (Exception e) {
             answer = "Неправильный вызов." + e.getMessage();
         }
@@ -32,4 +41,28 @@ public class VerbMorpher {
 
         System.out.println(answer);
     }
+
+    protected static boolean paramsAreCorrect(String tense, String person, String genus, String number)
+            throws WrongParameterException {
+        if (!tenses.contains(tense)) {
+            throwWrongParameterExceptionWithMessage("Tense is wrong");
+        } else if (!numbers.contains(number)) {
+            throwWrongParameterExceptionWithMessage("Number is wrong");
+        } else if (!genuses.contains(extract(genus))) {
+            throwWrongParameterExceptionWithMessage("Genus is wrong");
+        } else if (!persons.contains(person)) {
+            throwWrongParameterExceptionWithMessage("Person is wrong");
+        }
+        return true;
+    }
+
+    private static String extract(String genus) {
+        return genus.substring(0, 1).toLowerCase();
+    }
+
+    private static void throwWrongParameterExceptionWithMessage(String message) throws WrongParameterException {
+        WrongParameterException e = new WrongParameterException(message);
+        throw e;
+    }
+
 }

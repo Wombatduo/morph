@@ -5,11 +5,15 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import static org.junit.Assert.*;
 
-public class VerbMorpherTest extends VerbMorpher {
 
+public class    VerbMorpherTest extends VerbMorpher {
+
+    String person ;
+    String genus;
+    String num;
+    String tense;
 
     @Rule
     public ExpectedException expectedEx = ExpectedException.none();
@@ -17,35 +21,50 @@ public class VerbMorpherTest extends VerbMorpher {
 
     @Before
     public void setup(){
+        person  = "1";
+        genus = "m";
+        num = "singular";
+        tense = "past";
+    }
 
+    @Test
+    public void checkNoEceptionThenAllPArametrsAreCorrect() throws Exception {
+        assertTrue(paramsAreCorrect(tense, person, genus, num));
     }
 
     @Test
     public void checkEceptionThenNumberIsWrong() throws Exception {
-        int person  = 1;
-        String genus = "m";
         String wrong_num = "singilar";
-        String tense = "past";
-        String inf = "go";
 
         expectedEx.expect(WrongParameterException.class);
         expectedEx.expectMessage("Number is wrong");
-
-        checkParams(tense, person, genus, wrong_num);
+        paramsAreCorrect(tense, person, genus, wrong_num);
     }
 
-    private void checkParams(String tense, int person, String genus, String num) throws WrongParameterException {
-        String message = "Number is wrong";
-        WrongParameterException e = new WrongParameterException(message);
-        throw e;
+    @Test
+    public void checkEceptionThenTenseIsWrong() throws Exception {
+        String wrong_tense = "passt";
+
+        expectedEx.expect(WrongParameterException.class);
+        expectedEx.expectMessage("Tense is wrong");
+        paramsAreCorrect(wrong_tense, person, genus, num);
     }
 
-    class WrongParameterException extends Exception{
+    @Test
+    public void checkEceptionThenPersonIsWrong() throws Exception {
+        String wrong_person = "5";
 
-        public WrongParameterException(String message) {
-            super(message);
-        }
-
+      //  expectedEx.expect(WrongParameterException.class);
+        expectedEx.expectMessage("Person is wrong");
+        paramsAreCorrect(tense, wrong_person, genus, num);
     }
 
+    @Test
+    public void checkEceptionThenGenusIsWrong() throws Exception {
+        String wrong_genus = "cf";
+
+        expectedEx.expect(WrongParameterException.class);
+        expectedEx.expectMessage("Genus is wrong");
+        paramsAreCorrect(tense, person, wrong_genus, num);
+    }
 }
